@@ -1,9 +1,7 @@
 import os
 import requests
 import ramapi
-from ramapi import *
-
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -28,7 +26,8 @@ def create_app(test_config=None):
         pass
 
     # API
-    # r = ramapi.requests.get('https://rickandmortyapi.com/api/location/20')
+    r = ramapi.requests.get('https://rickandmortyapi.com/api/character/avatar/612.jpeg')
+    print(r)
     JSON_locations = ramapi.Location.get_all() # JSON data of all locations
     locations = JSON_locations['results']
 
@@ -44,10 +43,17 @@ def create_app(test_config=None):
         #     resident_id = int(resident_url[start + 1:])
         #     # print(ramapi.Character.get(resident_id)['image'])
         #     location['residents'][i] = ramapi.Character.get(resident_id)['image']
+    
+    test_locations = ''
+    for location in locations:
+        name = location['name']
+        type = location['type']
+        residents = location['residents']
+        test_locations += f'{name}\n{type}\n{residents}\n'
 
     # a simple page that says hello
     @app.route('/')
     def hello():
-        return locations
+        return render_template('app.html', locations = locations)
 
     return app
