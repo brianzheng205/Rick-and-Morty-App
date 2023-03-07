@@ -2,32 +2,67 @@
 <html>
     <head>
         <style>
-        hcenter {
-          text-align: center;
-        }
-
         body {
             background-color: rgb(46, 46, 46);
             color: rgb(231, 230, 230);
-            font-size: 30px;
+            
         }
 
+        h1 {
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+            font-size: 75px;
+        }
+
+        name {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 50px;
+        }
+
+        .column {
+            float: left;
+            padding: 30px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        figcaption {
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        img {
+            border-radius: 25px;
+        }
         </style>
     </head>
 
     <body>
     
-    <hcenter>
-        <h1>
-            Rick & Morty Locations
-        </h1>
-    </hcenter>
+    <h1>
+        Rick & Morty Locations
+    </h1>
 
     {% for location in locations %}
-        {{location['name']}} | {{location['type']}}<br>
-        {% for resident in location['residents'] %}
-            <img src="{{resident}}" alt="{{resident}}"><br>
-        {% endfor %}
+        <name>
+            {{location['name']}} | {{location['type']}}<br>
+        </name>
+
+        <div class="row">
+            {% for resident in location['residents'] %}
+                <div class="column">
+                    <img src="{{resident}}" alt="{{resident}}"><br>
+                    <figcaption>Fig.1 - Trulli, Puglia, Italy.</figcaption>
+                </div>
+            {% endfor %}
+        </div>
+
         <br>
     {% endfor %}
 
