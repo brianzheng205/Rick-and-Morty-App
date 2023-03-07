@@ -24,8 +24,9 @@
     </hcenter>
 
     {% for location in locations %}
-        {% for property in location %}
-            {{location[property]}}<br>
+        {{location['name']}} | {{location['type']}}<br>
+        {% for resident in location['residents'] %}
+            <img src="{{resident}}" alt="{{resident}}"><br>
         {% endfor %}
         <br>
     {% endfor %}

@@ -26,34 +26,32 @@ def create_app(test_config=None):
         pass
 
     # API
-    r = ramapi.requests.get('https://rickandmortyapi.com/api/character/avatar/612.jpeg')
-    print(r)
+    # r = ramapi.requests.get('https://rickandmortyapi.com/api/character/avatar/612.jpeg')
+    # print(r)
     JSON_locations = ramapi.Location.get_all() # JSON data of all locations
     locations = JSON_locations['results']
 
     for location in locations:
+        # delete unncessary information
         del location['created']
         del location['dimension']
         del location['id']
         del location['url']
 
-        # for i in range(len(location['residents'])):
-        #     resident_url = location['residents'][i]
-        #     start = resident_url.index('/', -4)
-        #     resident_id = int(resident_url[start + 1:])
-        #     # print(ramapi.Character.get(resident_id)['image'])
-        #     location['residents'][i] = ramapi.Character.get(resident_id)['image']
+        # convert resident url to resident image url for rendering later
+        for i in range(len(location['residents'])):
+            resident_url = location['residents'][i]
+            split = resident_url.index('/', -4)
+            beginning_url = resident_url[:split + 1]
+            resident_id = resident_url[split + 1:]
+            image_url = beginning_url + 'avatar/' + resident_id + '.jpeg'
+            location['residents'][i] = image_url
     
-    test_locations = ''
-    for location in locations:
-        name = location['name']
-        type = location['type']
-        residents = location['residents']
-        test_locations += f'{name}\n{type}\n{residents}\n'
+    # print(locations)
 
-    # a simple page that says hello
     @app.route('/')
-    def hello():
+    def convert():
+        # return locations
         return render_template('app.html', locations = locations)
 
     return app
