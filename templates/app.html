@@ -31,10 +31,16 @@
             display: table;
         }
 
+        figure {
+            display: table;
+        }
+
         figcaption {
             font-family: 'Brush Script MT', cursive;
             text-align: center;
             font-size: 25px;
+            display: table-caption;
+            caption-side: bottom;
         }
 
         img {
@@ -53,12 +59,13 @@
         <name>
             {{location['name']}} | {{location['type']}}<br>
         </name>
-
         <div class="row">
-            {% for resident in location['residents'] %}
+            {% for name, status, url in location['residents'] %}
                 <div class="column">
-                    <img src="{{resident}}" alt="{{resident}}"><br>
-                    <figcaption>Fig.1 - Trulli, Puglia, Italy.</figcaption>
+                    <figure>
+                        <img src="{{url}}" alt="{{resident}}">
+                        <figcaption>{{name}}<br>{{status}}</figcaption>
+                    </figure>
                 </div>
             {% endfor %}
         </div>
