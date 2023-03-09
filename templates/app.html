@@ -5,7 +5,6 @@
         body {
             background-color: rgb(46, 46, 46);
             color: rgb(231, 230, 230);
-            
         }
 
         h1 {
@@ -67,7 +66,17 @@
             {% for resident in location['residents'] %}
                 <div class="column">
                     <figure>
-                        <a href="/character_info?name={{resident['name']}}">
+                        <a href="
+                        /character_info?
+                        name={{resident['name']}}
+                        &status={{resident['status']}}
+                        &image_url={{resident['image']}}
+                        &species={{resident['species']}}
+                        &type={{resident['type']}}
+                        &gender={{resident['gender']}}
+                        &origin={{resident['origin']['name']}}
+                        &location={{resident['location']['name']}}
+                        ">
                             <img src="{{resident['image']}}" alt="{{resident['name']}}" width="300" height="300">
                         </a>
                         <figcaption>

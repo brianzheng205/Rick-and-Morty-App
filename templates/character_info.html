@@ -5,7 +5,6 @@
         body {
             background-color: rgb(46, 46, 46);
             color: rgb(231, 230, 230);
-            
         }
 
         h1 {
@@ -38,6 +37,15 @@
         status {
             color: rgb(13, 192, 192);
         }
+
+        body {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 25px;
+        }
+
+        p {
+            margin: 0px;
+        }
         </style>
     </head>
 
@@ -48,9 +56,9 @@
                 const sURLVariables = sPageURL.split('&');
                 for (var i = 0; i < sURLVariables.length; i++) {
                     const sParameterName = sURLVariables[i].split('=');
-                    if (sParameterName[0] == sParam) {
+                    if (sParameterName[0].replace(/%20/g, "") == sParam) {
                         const rawOutput = sParameterName[1];
-                        const newOutput = rawOutput.replace(/%20/g, " ");
+                        const newOutput = rawOutput.replace(/%20/g, " ").replace(/%27/g, "\'");
                         return newOutput;
                     }
                 }
@@ -59,13 +67,43 @@
             window.onload = function() {
                 const name = GetURLParameter('name');
                 document.getElementById('name').innerHTML = name;
+                const image_url = GetURLParameter('image_url');
+                document.getElementById('image_url').src = image_url;
                 const status = GetURLParameter('status');
-                document.getElementById('status').innerHTML = status;
+                document.getElementById('status').innerHTML += status;
+                const species = GetURLParameter('species');
+                document.getElementById('species').innerHTML += species;
+                const type = GetURLParameter('type');
+                document.getElementById('type').innerHTML += type;
+                const gender = GetURLParameter('gender');
+                document.getElementById('gender').innerHTML += gender;
+                const origin = GetURLParameter('origin');
+                document.getElementById('origin').innerHTML += origin;
+                const location = GetURLParameter('location');
+                document.getElementById('location').innerHTML += location;
             }
         </script>
     
     <h1 id="name"></h1>
-    <status><h1 id="status"></h1></status>
+    <img id="image_url" width="500" height="500">
+    <p id="status">
+        Status: 
+    </p>
+    <p id="species">
+        Species: 
+    </p>
+    <p id="type">
+        Type: 
+    </p>
+    <p id="gender">
+        Gender: 
+    </p>
+    <p id="origin">
+        Origin: 
+    </p>
+    <p id="location">
+        Location: 
+    </p>
 
     </body>
 </html>
