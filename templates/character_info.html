@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        body {
+            background-color: rgb(46, 46, 46);
+            color: rgb(231, 230, 230);
+            
+        }
+
+        h1 {
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+            font-size: 75px;
+        }
+
+        name {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 50px;
+        }
+
+        figure {
+            display: table;
+        }
+
+        figcaption {
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+            font-size: 25px;
+            display: table-caption;
+            caption-side: bottom;
+        }
+
+        img {
+            border-radius: 25px;
+        }
+
+        status {
+            color: rgb(13, 192, 192);
+        }
+        </style>
+    </head>
+
+    <body>
+        <script>
+            function GetURLParameter(sParam) {
+                const sPageURL = window.location.search.substring(1);
+                const sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) {
+                    const sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) {
+                        const rawOutput = sParameterName[1];
+                        const newOutput = rawOutput.replace(/%20/g, " ");
+                        return newOutput;
+                    }
+                }
+            }
+
+            window.onload = function() {
+                const name = GetURLParameter('name');
+                document.getElementById('name').innerHTML = name;
+                const status = GetURLParameter('status');
+                document.getElementById('status').innerHTML = status;
+            }
+        </script>
+    
+    <h1 id="name"></h1>
+    <status><h1 id="status"></h1></status>
+
+    </body>
+</html>

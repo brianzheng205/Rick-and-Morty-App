@@ -46,6 +46,10 @@
         img {
             border-radius: 25px;
         }
+
+        status {
+            color: rgb(13, 192, 192);
+        }
         </style>
     </head>
 
@@ -60,11 +64,15 @@
             {{location['name']}} | {{location['type']}}<br>
         </name>
         <div class="row">
-            {% for name, status, url in location['residents'] %}
+            {% for resident in location['residents'] %}
                 <div class="column">
                     <figure>
-                        <img src="{{url}}" alt="{{resident}}">
-                        <figcaption>{{name}}<br>{{status}}</figcaption>
+                        <a href="/character_info?name={{resident['name']}}">
+                            <img src="{{resident['image']}}" alt="{{resident['name']}}" width="300" height="300">
+                        </a>
+                        <figcaption>
+                            {{resident['name']}}<br><status>{{resident['status']}}</status>
+                        </figcaption>
                     </figure>
                 </div>
             {% endfor %}

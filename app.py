@@ -34,11 +34,13 @@ def create_app(test_config=None):
     # print(r.url)
     JSON_locations = ramapi.Location.get_all() # JSON data of all locations
     locations = JSON_locations['results']
-    id_to_name_and_status = {}
+    id_to_info = {}
     
     for i in range(1, 43):
         for character in ramapi.Character.get_page(i)['results']:
-            id_to_name_and_status[character['id']] = [character['name'], character['status']]
+            character_id = character['id']
+            del character['id']
+            id_to_info[character_id] = character
 
     for location in locations:
         # delete unncessary information
@@ -47,19 +49,20 @@ def create_app(test_config=None):
         del location['id']
         del location['url']
 
-        # convert resident url to [name, status, resident image url] for rendering later
+        # convert resident url to dictionary with all info for rendering later
         for i in range(len(location['residents'])):
             resident_url = location['residents'][i]
             split = resident_url.index('/', -4)
-            beginning_url = resident_url[:split + 1]
             resident_id = resident_url[split + 1:]
-            image_url = beginning_url + 'avatar/' + resident_id + '.jpeg'
-            name, status = id_to_name_and_status[int(resident_id)]
-            location['residents'][i] = [name, status, image_url]
+            location['residents'][i] = id_to_info[int(resident_id)]
 
     @app.route('/')
-    def convert():
+    def home():
         # render website
         return render_template('app.html', locations = locations)
+
+    @app.route('/character_info')
+    def character_info():
+        return render_template('character_info.html')
 
     return app
