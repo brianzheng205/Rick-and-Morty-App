@@ -1,1 +1,2 @@
 # Rick-and-Morty-App
+An web-based app based on Rick & Morty API. Displays all locations and for each location, displays residents' images along with their names and statuses. Clicking on a resident image will redirect user to the character's information page, which includes their name, image, status, species, type, gender, origin, and location. Also on this page, there is a form for custom notes that allows users to enter their own notes to submit.
