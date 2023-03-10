@@ -25,13 +25,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # API
-    # word = 'Hello World!'
-    # r = requests.get('https://httpbin.org/get', params=word)
-    # hi = {'hello': 'world'}
-    # r = requests.post('https://jsonplaceholder.typicode.com/posts', params=hi)
-    # print(r.text)
-    # print(r.url)
     JSON_locations = ramapi.Location.get_all() # JSON data of all locations
     locations = JSON_locations['results']
     id_to_info = {}
@@ -58,8 +51,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def home():
-        # render website
-        return render_template('app.html', locations = locations)
+        return render_template('app.html', locations=locations)
 
     @app.route('/character_info')
     def character_info():
